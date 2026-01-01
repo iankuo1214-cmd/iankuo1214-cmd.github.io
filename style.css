@@ -1,0 +1,1216 @@
+/* -----------------------------------
+GLOBAL STYLE
+----------------------------------- */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #000;
+    font-family: 'Inter', sans-serif;
+    color: #ffffff;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* -----------------------------------
+NAVIGATION — 極簡透明版（滑動後才毛玻璃）
+----------------------------------- */
+
+nav {
+    width: 100%;
+    height: 80px;
+    padding: 0 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+
+    /* 一開始：透明、無霧 */
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0);
+    -webkit-backdrop-filter: blur(0);
+
+    transition:
+        background 0.3s ease,
+        backdrop-filter 0.3s ease,
+        -webkit-backdrop-filter 0.3s ease;
+}
+
+/* 滑下來後：才毛玻璃 */
+nav.nav-blur {
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    /* 你要不要分隔線都行；你不想要就留這行註解 */
+    /* border-bottom: 1px solid rgba(255, 255, 255, 0.08); */
+}
+
+/* Logo */
+.nav-left img {
+    height: 28px;
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.nav-left img:hover {
+    /*transform: scale(1.1);*/  /*這個是logo會鼠標靠近放大*/
+    filter: brightness(1.2);
+}
+
+/* Menu */
+.nav-menu {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+}
+
+.nav-menu a {
+    color: #ffffff;
+    opacity: 0.85;
+    font-size: 15px;
+    transition: opacity 0.25s ease, transform 0.25s ease, color 0.25s ease;
+}
+
+.nav-menu a:hover {
+    opacity: 1;
+    transform: scale(1.1);
+    color: #ffcc74; /* 顏色 */
+}
+
+/* IG icon */
+.nav-ig .ig-icon {
+    width: 22px;
+    height: 22px;
+
+    transition: transform 0.25s ease, filter 0.25s ease, opacity 0.25s ease;
+    opacity: 0.9;
+}
+
+.nav-ig .ig-icon:hover {
+    transform: scale(1.1);
+    opacity: 1;
+
+    filter:
+        brightness(0)
+        saturate(100%)
+        invert(83%)
+        sepia(34%)
+        saturate(620%)
+        hue-rotate(353deg)
+        brightness(97%)
+        contrast(92%);
+}
+
+/* -----------------------------------
+Back to Top Button
+----------------------------------- */
+
+#backToTop {
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+    width: 55px;
+    height: 55px;
+
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+
+    color: #ffffff;
+    font-size: 30px;
+    cursor: pointer;
+
+    opacity: 0;
+    pointer-events: none;
+
+    /* 初始浮起狀態 */
+    transform: translateY(10px) scale(1);
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease;
+}
+
+/* 出現狀態 */
+#backToTop.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+}
+
+/* 滑鼠靠近：放大＋變色 */
+#backToTop.show:hover {
+    transform: translateY(0) scale(1.12);
+    color: #ffcc74; /* 跟 nav hover 同色 */
+    background: rgba(0, 0, 0, 0.55);
+    border-color: rgba(255, 204, 116, 0.45);
+}
+
+/* -----------------------------------
+HERO SECTION
+----------------------------------- */
+
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.45);
+}
+
+/* 底部漸層，從透明過渡到黑 */
+.hero-gradient {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 250px;
+    background: linear-gradient(
+        rgba(0,0,0,0),
+        rgba(0,0,0,0.4),
+        rgba(0,0,0,0.7),
+        #000
+    );
+    pointer-events: none;
+}
+
+.hero-title {
+    position: absolute;
+    bottom: 140px;
+    left: 80px;
+    font-size: clamp(40px, 6vw, 100px);
+    font-weight: 700;
+    line-height: 1.1;
+    max-width: 1400px;
+    color: #ffcc74; /* 顏色 */
+    letter-spacing: 0.02em;    /* 入場動畫 */
+    opacity: 0.9;              /* 入場動畫 */
+
+        /* 動畫初始狀態 */
+    opacity: 0;
+    transform: translateY(40px);
+    animation: riseIn 0.8s ease-out forwards;
+    animation-delay: 0.35s;   /* 比上面晚一點，看起來比較順 */
+}
+
+
+
+
+
+/* -----------------------------------
+CAROUSEL (3D style / Responsive)
+----------------------------------- */
+
+.carousel-section {
+    width: 100%;
+    padding: 140px 0 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 用 CSS 變數控制寬高，跟著視窗縮放 */
+.carousel-inner {
+    position: relative;
+    width: 100%;
+    max-width: 1600px;
+
+    /* 主要控制：一張圖的寬度、高度、左右位移 */
+    --slide-width: min(70vw, 900px);         /* 最多 900px，否則 60% viewport 寬 */
+    --slide-height: calc(var(--slide-width) * 0.58);   /* 大約是你原本 900x520 的比例 */
+    --side-offset: calc(var(--slide-width) * 0.55);    /* 左右兩張的偏移距離 */
+
+    height: var(--slide-height);
+}
+
+/* 基礎狀態：先全部疊在一起、縮小、透明 */
+.carousel-item {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: var(--slide-width);
+    height: var(--slide-height);
+    border-radius: 32px;
+    overflow: hidden;
+    transform: translateX(-50%) scale(0.7);
+    opacity: 0;
+    transition: transform 0.6s ease, opacity 0.6s ease, filter 0.6s ease, box-shadow 0.6s ease;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 中間這張 */
+.carousel-item.current {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+    filter: brightness(1.05);
+    z-index: 3;
+}
+
+/* 左邊那張 */
+.carousel-item.prev {
+    opacity: 0.7;
+    transform: translateX(calc(-50% - var(--side-offset))) scale(0.85);
+    filter: brightness(0.7);
+    z-index: 2;
+}
+
+/* 右邊那張 */
+.carousel-item.next {
+    opacity: 0.7;
+    transform: translateX(calc(-50% + var(--side-offset))) scale(0.85);
+    filter: brightness(0.7);
+    z-index: 2;
+}
+
+/* 其他兩張：直接隱藏掉 */
+.carousel-item.hidden {
+    opacity: 0;
+    z-index: 1;
+}
+
+/* 箭頭按鈕 */
+.carousel-arrows {
+    display: flex;
+    gap: 24px;
+    margin-top: 30px;
+}
+
+.arrow {
+    background: none;
+    border: none;
+    color: #ffcc74;/* 顏色 */
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 999px;
+    transition: background 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+    opacity: 0.8;
+}
+
+.arrow:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-1px);
+    opacity: 1;
+}
+
+/* 下方圓點 */
+.carousel-dots {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.dot {
+    width: 9px;
+    height: 9px;
+    background: #777;
+    border-radius: 50%;
+    transition: background 0.25s ease, transform 0.25s ease;
+    cursor: pointer;
+}
+
+.dot.active {
+    background: #fff;
+    transform: scale(1.1);
+}
+
+.dot:hover {
+    transform: scale(1.2);
+    background: rgba(255,255,255,0.85);
+}
+
+
+/* 讓整張輪播圖可點 */
+.carousel-link{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* 讓整張輪播圖可點 */
+.carousel-link{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* 統一由 img 控制亮度（避免跟 item 的 filter 打架） */
+.carousel-item img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    transform: scale(1);
+    transition: transform 0.6s ease, filter 0.6s ease;
+    filter: brightness(0.7); /* 預設先暗一點 */
+}
+
+/* 依位置給不同基礎亮度 */
+.carousel-item.current img{
+    filter: brightness(1.05);
+}
+.carousel-item.prev img,
+.carousel-item.next img{
+    filter: brightness(0.75);
+}
+
+/* hover：跟你 portfolio-card 一樣（慢慢放大、變亮） */
+.carousel-item:hover img{
+    transform: scale(1.06);
+    filter: brightness(1);
+}
+
+
+
+
+
+
+
+
+
+/* -----------------------------------
+PORTFOLIO PAGE — Recent Works
+----------------------------------- */
+
+.portfolio-page {
+    background: #000;
+    min-height: 100vh;
+    padding-top: 170px;   /* 頂部留空給 nav-fixed */
+}
+
+/* 整個作品區塊 */
+.portfolio-section {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 60px 80px;
+    text-align: center;
+}
+
+/* 大標題：Recent Works */
+.portfolio-heading {
+    font-size: 25px;
+    font-weight: 20;
+    margin: 0 0 40px;
+    color: #ffcc74; /* 金色 */
+}
+
+/* 三張大卡片橫排 */
+.portfolio-grid {
+    display: flex;
+    gap: 70px;
+    justify-content: center;
+}
+
+/* 卡片本體 */
+.portfolio-card {
+    position: relative;
+    flex: 1;
+    max-width: 700px;          /* 三張剛剛好 */
+    aspect-ratio: 3 / 4;       /* 接近截圖那種直立比例 */
+    overflow: hidden;
+    background: #111;
+    cursor: pointer;
+}
+
+/* 圖片填滿卡片 */
+.portfolio-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1);
+    transition: transform 0.8s ease, filter 0.8s ease;
+    filter: brightness(0.85);
+}
+
+/* hover 慢慢放大、變亮 */
+.portfolio-card:hover img {
+    transform: scale(1.06);
+    filter: brightness(1);
+}
+
+/* 中央小標 */
+.card-label {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 20px;
+    letter-spacing: 0.08em;
+    text-transform: capitalize;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
+    pointer-events: none;
+    color: #ffffff; /* 顏色 */
+}
+
+/* RWD：平板變兩欄 */
+@media (max-width: 1024px) {
+    .portfolio-section {
+        padding: 0 24px 60px;
+    }
+
+    .portfolio-grid {
+        flex-wrap: wrap;
+    }
+
+    .portfolio-card {
+        max-width: none;
+        flex: 1 1 calc(50% - 16px);
+    }
+}
+
+/* RWD：手機變一欄 */
+@media (max-width: 640px) {
+    .portfolio-card {
+        flex: 1 1 100%;
+    }
+
+    .portfolio-heading {
+        margin-bottom: 32px;
+    }
+}
+
+
+
+
+/* ----- 作品 瀑布頁（系列頁） ----- */
+.series-page {
+    background: #000;
+    min-height: 100vh;
+    padding: 140px 60px 100px;
+}
+
+.series-title {
+    text-align: center;
+    color: #ffcc74;
+    font-size: 26px;
+    font-weight: 20;
+    letter-spacing: 0.18em;
+    margin-bottom: 60px;
+}
+
+/* 瀑布流 */
+.series-grid {
+    max-width: 1300px;
+    margin: 0 auto;
+    columns: 4;              /* 4 欄瀑布流 */
+    column-gap: 24px;
+}
+
+/* 外框：整塊都是可點的卡片 */
+.series-item {
+    display: block;          /* 因為是 <a>，要變成 block 卡片 */
+    width: 100%;
+    margin-bottom: 24px;
+    overflow: hidden;        /* 裁掉 hover 放大的部分 */
+    break-inside: avoid;     /* 不要被切半 */
+    text-decoration: none;   /* 拿掉連結底線 */
+    color: inherit;          /* 文字顏色跟外面一樣（雖然現在沒有字） */
+    cursor: pointer;
+}
+
+/* 照片：在卡片裡面放大 */
+.series-item img {
+    width: 100%;
+    display: block;
+    transform: scale(1);
+    filter: brightness(0.85);
+    transition: transform 0.7s ease, filter 0.7s ease;
+}
+
+/* hover 慢慢放大、變亮 */
+.series-item:hover img {
+    transform: scale(1.06);
+    filter: brightness(1);
+}
+
+/* RWD：平板 2 欄 */
+@media (max-width: 1024px) {
+    .series-grid {
+        columns: 2;
+    }
+}
+
+/* RWD：手機 1 欄 */
+@media (max-width: 640px) {
+    .series-page {
+        padding: 120px 20px 60px;
+    }
+
+    .series-grid {
+        columns: 1;
+    }
+
+    .series-title {
+        font-size: 22px;
+        margin-bottom: 40px;
+    }
+}
+
+
+
+
+
+
+/* -----------------------------------
+   全站通用返回鍵
+----------------------------------- */
+.global-back {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    color: #ffffff;
+    opacity: 0.75;
+    font-size: 15px;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+
+    /* 全站統一位置（可依需要微調） */
+    margin-left: 60px;
+    margin-top: 120px;
+
+    transform-origin: left center;
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        color 0.25s ease;
+}
+
+/* Arrow */
+.global-back-icon {
+    width: 7px;
+    height: 7px;
+    border-left: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg);
+    margin-top: -1px;
+    transition: border-color 0.25s ease;
+}
+
+.global-back-text {
+    font-size: 14px;
+    transition: color 0.25s ease;
+}
+
+/* Hover 狀態（微放大 + 金色） */
+.global-back:hover {
+    opacity: 1;
+    transform: scale(1.06);
+    color: #ffcc74;
+}
+
+.global-back:hover .global-back-icon {
+    border-color: #ffcc74;
+}
+
+.global-back:hover .global-back-text {
+    color: #ffcc74;
+}
+
+
+
+
+/* -----------------------------------
+   通用頁面主區塊
+----------------------------------- */
+.page-main {
+    position: relative;
+    padding: 140px 80px 80px; /* 上：避開 nav＋呼吸空間，左右 80 跟你作品頁一樣 */
+}
+
+/* -----------------------------------
+   全站通用返回鍵（固定在主內容左上角）
+----------------------------------- */
+.global-back {
+    position: absolute;
+    top: 40px;      /* 距離 page-main 內部上方 40px */
+    left: 0;        /* 因為 page-main 已經有 padding-left:80px，所以這裡用 0 就好 */
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    color: #ffffff;
+    opacity: 0.75;
+    font-size: 15px;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+
+    transform-origin: left center;
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        color 0.25s ease;
+}
+
+/* 箭頭造型 */
+.global-back-icon {
+    width: 7px;
+    height: 7px;
+    border-left: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg);
+    margin-top: -1px;
+    transition: border-color 0.25s ease;
+}
+
+.global-back-text {
+    font-size: 14px;
+    transition: color 0.25s ease;
+}
+
+/* hover：微放大＋金色 */
+.global-back:hover {
+    opacity: 1;
+    transform: scale(1.06);
+    color: #ffcc74;
+}
+
+.global-back:hover .global-back-icon {
+    border-color: #ffcc74;
+}
+
+.global-back:hover .global-back-text {
+    color: #ffcc74;
+}
+
+
+
+
+/* -----------------------------------
+單張作品頁：左圖右文（右側齊左邊照片尾）
+----------------------------------- */
+
+.photo-detail-page {
+    background: #000;
+    min-height: 100vh;
+    padding: 160px 80px 100px;
+    color: #fff;
+}
+
+.photo-detail-container {
+    max-width: 1400px;
+    margin: 0 auto;
+
+    display: flex;
+    gap: 60px;
+
+    /* 關鍵：讓右邊文字區跟左邊照片「齊尾」 */
+    align-items: flex-end;
+}
+
+/* 左邊照片 */
+.photo-detail-image {
+    flex: 0 0 60%;
+}
+
+.photo-detail-image img {
+    width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    display: block;
+}
+
+/* 右邊文字區 */
+.photo-detail-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    /* 不要再往下推，不然會失去齊尾效果 */
+    padding-top: 0;
+}
+
+.photo-detail-series {
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    color: #ffcc74;
+}
+
+.photo-detail-title {
+    font-size: 28px;
+    letter-spacing: 0.08em;
+    margin: 0;
+}
+
+.photo-detail-meta {
+    font-size: 14px;
+    opacity: 0.7;
+    margin: 0;
+}
+
+.photo-detail-caption {
+    font-size: 15px;
+    line-height: 1.8;
+    opacity: 0.9;
+    margin-top: 16px;
+    white-space: pre-line;   /* ← 加這一行 */
+}
+
+.photo-detail-back {
+    margin-top: 32px;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    color: #ffffff;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.photo-detail-back:hover {
+    opacity: 1;
+}
+
+/* 手機版：改成上下堆疊，不需要齊尾 */
+@media (max-width: 900px) {
+    .photo-detail-page {
+        padding: 140px 20px 60px;
+    }
+
+    .photo-detail-container {
+        flex-direction: column;
+        gap: 32px;
+        align-items: flex-start;   /* 手機版就不用齊尾了 */
+    }
+
+    .photo-detail-image {
+        flex: none;
+    }
+}
+
+
+
+
+
+
+
+/* -----------------------------------
+ABOUT PAGE
+----------------------------------- */
+
+/* 整個 About 的外框 */
+.about-section {
+    width: 100%;
+    background: #000;
+    padding: 200px 0 120px;
+    color: #ffffff;
+}
+
+/* 上半部：照片＋文字，置中 */
+.about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 80px;
+
+    /* 動畫：往上浮＋淡入 */
+    opacity: 0;
+    transform: translateY(40px);
+    animation: riseIn 0.8s ease-out forwards;
+    animation-delay: 0.15s;
+}
+
+/* 照片（不切頭） */
+.about-photo img {
+    width: 380px;
+    height: 380px;
+    object-fit: cover;
+    object-position: 50% 20%;   /* ← 不切頭關鍵 */
+    border-radius: 0;
+}
+
+/* 右側文字 */
+.about-text {
+    flex: 0 0 auto;
+    margin-top: 230px;
+}
+
+.about-name {
+    font-size: 48px;
+    letter-spacing: 0.08em;
+    margin: 0 0 32px;
+    color: #ffcc74; /* 顏色 */
+}
+
+.about-info p {
+    font-size: 18px;
+    margin: 8px 0;
+    opacity: 0.85;
+}
+
+/* 下半部：攝影文字敘述 */
+.about-description {
+    max-width: 720px;
+    margin: 80px auto 0;
+    font-size: 16px;
+    line-height: 1.9;
+    letter-spacing: 0.02em;
+    opacity: 0.9;
+
+    /* 動畫：往上淡入（比上面慢開始） */
+    opacity: 0;
+    transform: translateY(40px);
+    animation: riseIn 0.8s ease-out forwards;
+    animation-delay: 0.35s;
+}
+
+.about-description p {
+    margin-bottom: 24px;
+}
+
+/* 動畫定義 */
+@keyframes riseIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+
+
+
+
+
+
+/* -----------------------------------
+contact
+----------------------------------- */
+
+.contact-section {
+    background: #000;
+    color: #fff;
+    padding: 300px 80px 120px;   /* 跟作品頁、about 高度差不多 */
+}
+
+.contact-container {
+    max-width: 1100px;     /* 建議 1000–1200，會更像 Wix */
+    margin: 0 auto;        /* ★ 水平置中 */
+    display: flex;
+    justify-content: center;  /* ★ 讓左右靠中間 */
+    align-items: flex-start;
+    gap: 120px;
+}
+
+/* 左側文字 */
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.contact-title {
+    font-size: 48px;
+    letter-spacing: 0.08em;
+    margin: 0 0 24px;
+    color: #ffcc74; /* 顏色 */
+}
+
+.contact-sub {
+    font-size: 16px;
+    opacity: 0.7;
+    margin-bottom: 32px;
+}
+
+.contact-text p {
+    font-size: 16px;
+    line-height: 1.8;
+    margin: 0 0 40px;
+}
+
+
+
+.contact-methods p {
+    font-size: 16px;
+    line-height: 1.8;
+    margin: 0 0 20px;
+}
+
+.contact-methods a {
+    text-decoration: none;
+    color: #ffffff;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.contact-methods a:hover {
+    border-color: #ffffff;
+    opacity: 0.7;
+}
+
+/* 右側表單 */
+
+.contact-form {
+    flex: 0 0 50%;
+}
+
+.form-row {
+    display: flex;
+    gap: 24px;
+}
+
+.field {
+    flex: 1;
+    margin-bottom: 28px;
+}
+
+.field label {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0.6;
+}
+
+.field input,
+.field textarea {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #444;
+    background: transparent;
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    padding: 8px 0;
+    outline: none;
+    resize: vertical;
+}
+
+.field input:focus,
+.field textarea:focus {
+    border-bottom-color: #ffffff;
+}
+
+.field textarea::placeholder {
+    color: #777;
+}
+
+/* Submit 按鈕 */
+
+.btn-submit {
+    margin-top: 16px;
+    padding: 10px 40px;
+    border-radius: 0;
+    border: 1px solid #ffffff;
+    background: transparent;
+    color: #ffffff;
+    font-size: 14px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn-submit:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+/* 簡單 RWD：視窗變窄就上下排 */
+
+@media (max-width: 900px) {
+    .contact-section {
+        padding: 220px 24px 80px;
+    }
+
+    .contact-container {
+        flex-direction: column;
+        gap: 60px;
+    }
+
+    .contact-info,
+    .contact-form {
+        flex: 1 1 100%;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
+}
+
+
+.form-success {
+    margin-top: 20px;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.7);
+
+    opacity: 0;
+    transform: translateY(8px);
+    max-height: 0;
+    overflow: hidden;
+
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease,
+        max-height 0.8s ease;
+}
+
+.form-success.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 40px; /* 足夠容納一行字 */
+}
+
+.form-success.is-hiding {
+    opacity: 0;
+    transform: translateY(8px);
+    max-height: 0;
+}
+
+
+
+
+
+
+/* -----------------------------------
+FOOTER — Minimal Clean Style
+----------------------------------- */
+footer {
+    width: 100%;
+    padding: 40px 0;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: #888;                /* 不會太亮的灰 */
+    /*border-top: 1px solid #222;*/   /* 超細分隔線 */
+    margin-top: 10px;          /* 和上方內容保持呼吸感 */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: footerFade 0.8s ease-out 0.3s forwards;
+}
+
+/* Footer 淡入＋上飄動畫 */
+@keyframes footerFade {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+/* ---------------------*/
+/*動畫*/
+/* 上半部：照片＋基本資訊 往上淡入 */
+.about-container {
+    opacity: 0;
+    transform: translateY(40px);
+    animation: riseIn 0.8s ease-out forwards;
+    animation-delay: 0.15s;   /* 想更慢就改 0.3s 之類 */
+}
+
+/* 下半部：文字說明，稍微晚一點出現 */
+.about-description {
+    max-width: 720px;
+    margin: 80px auto 0;
+    font-size: 16px;
+    line-height: 1.9;
+    letter-spacing: 0.02em;
+    opacity: 0.9;
+
+    /* 動畫初始狀態 */
+    opacity: 0;
+    transform: translateY(40px);
+    animation: riseIn 0.8s ease-out forwards;
+    animation-delay: 0.35s;   /* 比上面晚一點，看起來比較順 */
+}
+
+.about-description p {
+    margin-bottom: 24px;
+}
+
+
+
+
+
+
+/* -----------------------------------
+PAGE FADE-IN動畫（關於頁整頁淡入）
+----------------------------------- */
+
+.body-fade {
+    opacity: 0;
+    animation: bodyFadeIn 1s ease-out forwards;
+}
+
+@keyframes bodyFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@keyframes riseIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

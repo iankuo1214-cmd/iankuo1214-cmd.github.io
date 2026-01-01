@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yanting Kuo</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.png" type="image/png">
+</head>
+<body class="body-fade">
+
+    <!-- NAV（固定在最上面） -->
+    <nav class="nav-fixed">
+        <div class="nav-left">
+            <a href="index.html">
+                <img src="logo/logo.png" alt="Yanting Kuo Logo">
+            </a>
+        </div>
+
+        <div class="nav-menu">
+            <a href="Portfolio.html">作 品</a>
+            <a href="about.html">關 於</a>
+            <a href="Contact.html">聯 絡</a>
+
+            <!-- IG icon -->
+            <a href="https://www.instagram.com/ian._.visual_art"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="nav-ig">
+                <img class="ig-icon" src="logo/ig.png" alt="Instagram">
+            </a>
+        </div>
+    </nav>
+
+    <!-------------------------------------------------------------------->
+    <a href="index.html" class="global-back">
+        <span class="global-back-icon" aria-hidden="true"></span>
+        <span class="global-back-text">返回</span>
+    </a>
+
+    <section class="contact-section" id="contact">
+        <div class="contact-container">
+
+            <!-- 左邊：聯絡資訊 -->
+            <div class="contact-info">
+                <h1 class="contact-title">聯 絡</h1>
+                <p class="contact-sub">視 覺 傳 達 整 合 設 計</p>
+
+                <div class="contact-text">
+                    <p>如需合作洽談或專案討論，歡迎以以下方式聯繫。</p>
+                </div>
+
+                <div class="contact-methods">
+                    <p>Email<br>
+                        <a href="mailto:iankuo1214@gmail.com">iankuo1214@gmail.com</a>
+                    </p>
+                    <p>Instagram<br>
+                        <a href="https://www.instagram.com/ian._.visual_art" target="_blank">@ian._.visual_art</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- 右邊：表單（Netlify Forms 可用） -->
+            <form class="contact-form"
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                data-netlify-honeypot="bot-field">
+
+                <!-- Netlify 必要：表單名稱 -->
+                <input type="hidden" name="form-name" value="contact">
+
+                <!-- Honeypot 防垃圾：正常人看不到，機器人很愛填 -->
+                <p style="display:none;">
+                    <label>Don’t fill this out:
+                        <input name="bot-field" />
+                    </label>
+                </p>
+
+                <div class="form-row">
+                    <div class="field">
+                        <label for="firstName">名 *</label>
+                        <input id="firstName" name="firstName" type="text" autocomplete="given-name" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="lastName">姓 *</label>
+                        <input id="lastName" name="lastName" type="text" autocomplete="family-name" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="email">Email *</label>
+                    <input id="email" name="email" type="email" autocomplete="email" required>
+                </div>
+
+                <div class="field">
+                    <label for="message">訊息 *</label>
+                    <textarea id="message" name="message" rows="5" placeholder="輸入您的文字..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">傳送</button>
+
+
+<p class="form-success" aria-live="polite">
+已收到，會在 1–3 日內回覆。
+</p>
+
+                <!-- 可選：你想加一句小字更完整 -->
+                <!-- <p class="form-hint">通常 1–3 日內回覆</p> -->
+            </form>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        © 2025 by YANTING KUO. Powered and secured by YANTING
+    </footer>
+
+    <!-- 回到頂端按鈕 -->
+    <button id="backToTop" aria-label="Back to top">↑</button>
+
+    <!-- UI 行為 -->
+    <script src="ui.js"></script>
+
+</body>
+</html>

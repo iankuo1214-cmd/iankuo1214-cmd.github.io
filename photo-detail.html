@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品｜Yanting Kuo</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.png" type="image/png">
+</head>
+<body class="body-fade">
+
+    <!-- NAV（固定在最上面） -->
+    <nav class="nav-fixed">
+        <div class="nav-left">
+            <a href="index.html">
+                <img src="logo/logo.png" alt="Yanting Kuo Logo">
+            </a>
+        </div>
+
+        <div class="nav-menu">
+            <a href="Portfolio.html">作 品</a>
+            <a href="about.html">關 於</a>
+            <a href="Contact.html">聯 絡</a>
+
+            <!-- IG icon -->
+            <a href="https://www.instagram.com/ian._.visual_art"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="nav-ig">
+                <img class="ig-icon" src="logo/ig.png" alt="Instagram">
+            </a>
+        </div>
+    </nav>
+
+    <!-------------------------------------------------------------------->
+
+    <!-- Apple 風返回箭頭（由 JS 動態決定要回哪一個系列頁） -->
+    <a href="#" class="global-back" id="global-back-link">
+        <span class="global-back-icon" aria-hidden="true"></span>
+        <span class="global-back-text" id="global-back-text">返回</span>
+    </a>
+
+    <!-- 單張作品頁 -->
+    <main class="photo-detail-page">
+        <div class="photo-detail-container">
+
+            <!-- 左邊：照片 -->
+            <div class="photo-detail-image">
+                <img id="detail-image" src="" alt="">
+            </div>
+
+            <!-- 右邊：文字 -->
+            <div class="photo-detail-info">
+                <p class="photo-detail-series" id="detail-series">系列名稱</p>
+                <h1 class="photo-detail-title" id="detail-title">作品標題</h1>
+
+                <p class="photo-detail-meta" id="detail-meta">年份 · 地點</p>
+
+                <p class="photo-detail-caption" id="detail-caption">
+                    這裡是作品說明，會依照你點的照片自動帶入。
+                </p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-------------------------------------------------------------------->
+    <!-- FOOTER -->
+    <footer>
+        © 2025 by YANTING KUO. Powered and secured by YANTING
+    </footer>
+
+    <!-- JS -->
+    <script src="photo-detail.js"></script>
+
+        <!-- 回到頂端按鈕 -->
+    <button id="backToTop" aria-label="Back to top">
+        ↑
+    </button>
+
+    <!-- UI 行為 -->
+    <script src="ui.js"></script>
+</body>
+</html>
